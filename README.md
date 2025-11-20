@@ -1,5 +1,3 @@
-# Portfolio.dev
-
 # 🌐 Sharesth Gulia — Personal Portfolio
 
 A clean and modern personal portfolio website built using **HTML**, **CSS**, **JavaScript**, **React**, and **Node.js**.  

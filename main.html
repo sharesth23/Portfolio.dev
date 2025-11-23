@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio | Landing Page</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap");
+
+    :root {
+      --bg: #050505;
+      --panel: #151515;
+      --text: #f5f5f5;
+      --muted: #c6c2c0;
+      --accent: #98938f;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1e1b1b, #050505 55%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .viewport {
+      width: min(1200px, 100%);
+      background: var(--panel);
+      border-radius: 36px;
+      padding: 3rem;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 2.5fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .content-area {
+      position: relative;
+      min-height: 500px;
+    }
+
+    .title-block h1 {
+      font-family: "Cormorant Garamond", "Times New Roman", serif;
+      font-size: clamp(3rem, 8vw, 5.4rem);
+      letter-spacing: 0.04em;
+      font-weight: 500;
+    }
+
+    .title-block p.role {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--muted);
+      margin-top: -0.5rem;
+    }
+
+    .story {
+      max-width: 560px;
+      margin-top: 1.5rem;
+      font-size: 1.15rem;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
+    .signature {
+      margin-top: 2.5rem;
+      font-family: "Cormorant Garamond", serif;
+      letter-spacing: 0.2em;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .nav-panel {
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+      padding-left: 2rem;
+    }
+
+    .nav-panel .label {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-panel .label span {
+      display: inline-block;
+      margin-right: 0.75rem;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .nav-panel ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+
+    .nav-panel li {
+      padding-bottom: 0.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .nav-panel li:last-child {
+      border-bottom: none;
+    }
+
+    .nav-panel li {
+      cursor: pointer;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav-panel li:hover {
+      opacity: 0.7;
+      transform: translateX(4px);
+    }
+
+    .nav-panel li.active {
+      opacity: 1;
+      font-weight: 600;
+    }
+
+    .content-section {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .content-section h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      margin-bottom: 2rem;
+      color: var(--text);
+    }
+
+    .content-section h3 {
+      font-size: 1.5rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .content-section p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      max-width: 700px;
+    }
+
+    .content-section ul {
+      list-style: none;
+      margin-top: 1.5rem;
+    }
+
+    .content-section ul li {
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .content-section ul li:last-child {
+      border-bottom: none;
+    }
+
+    .content-section .highlight {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .back-btn {
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .back-btn:hover {
+      opacity: 0.7;
+    }
+
+    .grid-item {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .card h4 {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .portrait {
+      position: absolute;
+      bottom: 0;
+      right: 4rem;
+      width: clamp(200px, 22vw, 280px);
+      height: clamp(360px, 42vw, 520px);
+      background-image: url("https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=500&q=90");
+      background-size: cover;
+      background-position: center top;
+      filter: grayscale(100%) contrast(1.1);
+      mix-blend-mode: lighten;
+      border-radius: 999px 999px 0 0;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      opacity: 0.9;
+    }
+
+    .portrait::after {
+      content: "";
+      position: absolute;
+      inset: 15% 10% 0;
+      border-radius: inherit;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      pointer-events: none;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-panel {
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-left: 0;
+        padding-top: 2rem;
+      }
+
+      .portrait {
+        position: static;
+        width: min(320px, 60vw);
+        height: min(520px, 90vw);
+        margin: 2rem auto 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="viewport">
+    <div class="grid">
+      <section class="content-area">
+        <div class="content-section active" id="about">
+          <div class="title-block">
+            <h1>Sharesth</h1>
+            <p class="role">Software Developer</p>
+          </div>
+          <p class="story">
+            I build robust, scalable software solutions that solve real-world problems. With expertise in full-stack development,
+            I craft clean, maintainable code and architect systems that perform at scale. From web applications to cloud infrastructure,
+            I transform ideas into production-ready software.
+          </p>
+          <p class="story">
+            I combine technical excellence with pragmatic problem-solving to deliver software that is both powerful and elegant.
+            Whether it's optimizing database queries, designing RESTful APIs, or building responsive user interfaces, I approach
+            every challenge with attention to detail and a focus on long-term maintainability.
+          </p>
+          <p class="signature">Sharesth Dev</p>
+        </div>
+
+        <div class="content-section" id="resume">
+          <h2>Resume</h2>
+          <h3>Experience</h3>
+          <ul>
+            <li>
+              <span class="highlight">Senior Full-Stack Developer</span> — TechFlow Systems<br>
+              <span style="color: var(--muted); font-size: 0.95rem;">2020 - Present</span><br>
+              Leading development of enterprise SaaS platforms using React, Node.js, and PostgreSQL. Architected microservices
+              infrastructure serving 2M+ users. Reduced API response times by 60% through optimization and caching strategies.
+            </li>
+            <li>
+              <span class="highlight">Software Engineer</span> — CommerceHub<br>
+              <span style="color: var(--muted); font-size: 0.95rem;">2017 - 2020</span><br>
+              Built scalable e-commerce APIs and payment processing systems. Implemented CI/CD pipelines reducing deployment
+              time by 75%. Developed real-time inventory management system handling 10K+ transactions per minute.
+            </li>
+            <li>
+              <span class="highlight">Junior Developer</span> — Web3 Labs<br>
+              <span style="color: var(--muted); font-size: 0.95rem;">2015 - 2017</span><br>
+              Developed blockchain applications using Solidity and Web3.js. Built decentralized applications (DApps) with
+              focus on security and gas optimization. Contributed to open-source Ethereum projects.
+            </li>
+          </ul>
+          <h3>Education</h3>
+          <ul>
+            <li>
+              <span class="highlight">B.Tech in Artificial Intelligence & Data Science</span> — NIT Kurukshetra<br>
+              <span style="color: var(--muted); font-size: 0.95rem;">2024 - 2028</span><br>
+              Coursework across advanced machine learning, large-scale data systems, and distributed computing. Active in hackathons and research labs.
+            </li>
+            <li>
+              <span class="highlight">Certifications</span><br>
+              <span style="color: var(--muted); font-size: 0.95rem;">Ongoing</span><br>
+              AWS Certified Solutions Architect, Google Cloud Professional Developer, Kubernetes Administrator
+            </li>
+          </ul>
+        </div>
+
+        <div class="content-section" id="credentials">
+          <h2>Credentials</h2>
+          <div class="grid-item">
+            <div class="card">
+              <h4>AWS Certified Solutions Architect</h4>
+              <p>Amazon Web Services — 2021</p>
+            </div>
+            <div class="card">
+              <h4>Google Cloud Professional Developer</h4>
+              <p>Google Cloud Platform — 2020</p>
+            </div>
+            <div class="card">
+              <h4>Certified Kubernetes Administrator</h4>
+              <p>Cloud Native Computing Foundation — 2022</p>
+            </div>
+            <div class="card">
+              <h4>Scrum Master Certified</h4>
+              <p>Scrum Alliance — 2019</p>
+            </div>
+          </div>
+          <h3>Recognition</h3>
+          <ul>
+            <li>GitHub Arctic Code Vault Contributor — Open Source Contributions (2023)</li>
+            <li>Stack Overflow Top 10% Contributor — JavaScript & React (2022)</li>
+            <li>TechCrunch Featured — Startup Product Launch (2021)</li>
+            <li>HackerRank Gold Badge — Problem Solving & Algorithms (2020)</li>
+          </ul>
+        </div>
+
+        <div class="content-section" id="inspirations">
+          <h2>Inspirations</h2>
+          <p>Code is poetry. These are the philosophies and pioneers that shape my approach to software development.</p>
+          <h3>Development Philosophy</h3>
+          <p>
+            I draw inspiration from the principles of clean code, software architecture, and engineering excellence. 
+            The teachings of Robert C. Martin (Uncle Bob), Martin Fowler, and Kent Beck inform my approach to writing
+            maintainable, scalable code. I believe in the power of simplicity, testability, and continuous improvement.
+          </p>
+          <h3>Influences</h3>
+          <ul>
+            <li><span class="highlight">Clean Code Principles</span> — Readability, simplicity, and maintainability</li>
+            <li><span class="highlight">SOLID Principles</span> — Object-oriented design patterns and best practices</li>
+            <li><span class="highlight">Functional Programming</span> — Immutability, pure functions, declarative code</li>
+            <li><span class="highlight">Open Source Movement</span> — Collaboration, knowledge sharing, community</li>
+            <li><span class="highlight">DevOps Culture</span> — Automation, CI/CD, infrastructure as code</li>
+            <li><span class="highlight">Agile Methodologies</span> — Iterative development, continuous feedback, adaptability</li>
+          </ul>
+        </div>
+
+        <div class="content-section" id="typography">
+          <h2>Code Style & Standards</h2>
+          <p>Consistent code style is the foundation of maintainable software. I follow established conventions and create clear, readable code.</p>
+          <h3>Primary Languages</h3>
+          <div class="grid-item">
+            <div class="card">
+              <h4 style="font-family: 'Inter', sans-serif; font-size: 1.5rem;">JavaScript/TypeScript</h4>
+              <p>ES6+, TypeScript for type safety. Prefer functional patterns, async/await, and modern syntax.</p>
+            </div>
+            <div class="card">
+              <h4 style="font-family: 'Inter', sans-serif; font-size: 1.5rem;">Python</h4>
+              <p>PEP 8 compliant. Focus on readability, list comprehensions, and Pythonic idioms.</p>
+            </div>
+            <div class="card">
+              <h4 style="font-family: 'Inter', sans-serif; font-size: 1.5rem;">Java</h4>
+              <p>Java conventions, Spring Boot patterns. Emphasis on clean architecture and SOLID principles.</p>
+            </div>
+            <div class="card">
+              <h4 style="font-family: 'Inter', sans-serif; font-size: 1.5rem;">Go</h4>
+              <p>Go idioms, effective Go patterns. Simplicity, concurrency, and standard library usage.</p>
+            </div>
+          </div>
+          <h3>Coding Standards</h3>
+          <ul>
+            <li><span class="highlight">Naming:</span> Descriptive, camelCase for variables, PascalCase for classes</li>
+            <li><span class="highlight">Functions:</span> Single responsibility, max 20 lines, clear parameters</li>
+            <li><span class="highlight">Comments:</span> Why, not what. Document complex logic and business rules</li>
+            <li><span class="highlight">Formatting:</span> Prettier/ESLint for JS, Black for Python, gofmt for Go</li>
+            <li><span class="highlight">Testing:</span> Unit tests for logic, integration tests for APIs, 80%+ coverage</li>
+          </ul>
+          <h3>Principles</h3>
+          <p>
+            I prioritize readability, consistency, and maintainability. Code should be self-documenting through
+            clear naming and structure. When complexity is necessary, it's explained through comments and tests.
+            Every function has a single responsibility, and every module has a clear purpose.
+          </p>
+        </div>
+
+        <div class="content-section" id="testimonials">
+          <h2>Testimonials</h2>
+          <div class="grid-item">
+            <div class="card">
+              <p>"Sharesth transformed our platform's performance. Their optimization work reduced API response times by 60% 
+              and improved system reliability. The code quality and documentation standards they established are now our team benchmark."</p>
+              <p style="margin-top: 1rem; color: var(--text);"><strong>Sarah Chen</strong><br>
+              <span style="color: var(--muted); font-size: 0.9rem;">CTO, TechFlow Systems</span></p>
+            </div>
+            <div class="card">
+              <p>"Working with Sharesth was a masterclass in software architecture. They designed a microservices 
+              infrastructure that scaled seamlessly from 100K to 2M users. Their code reviews and mentoring elevated our entire team."</p>
+              <p style="margin-top: 1rem; color: var(--text);"><strong>Marcus Rodriguez</strong><br>
+              <span style="color: var(--muted); font-size: 0.9rem;">Engineering Manager, CommerceHub</span></p>
+            </div>
+            <div class="card">
+              <p>"Sharesth's ability to balance technical excellence with business needs is exceptional. They consistently 
+              deliver robust solutions on time, with clean code and comprehensive tests. A true full-stack professional."</p>
+              <p style="margin-top: 1rem; color: var(--text);"><strong>Emily Watson</strong><br>
+              <span style="color: var(--muted); font-size: 0.9rem;">Product Manager, Web3 Labs</span></p>
+            </div>
+          </div>
+        </div>
+
+        
+
+        <div class="content-section" id="figma-templates">
+          <h2>Code Repositories</h2>
+          <p>I create and share open-source projects and code templates that help developers work faster and more efficiently.</p>
+          <h3>Featured Repositories</h3>
+          <div class="grid-item">
+            <div class="card">
+              <h4>React Component Library</h4>
+              <p>Reusable React components with TypeScript, Storybook, and comprehensive tests</p>
+            </div>
+            <div class="card">
+              <h4>REST API Boilerplate</h4>
+              <p>Node.js/Express starter with authentication, validation, and database setup</p>
+            </div>
+            <div class="card">
+              <h4>Microservices Template</h4>
+              <p>Docker Compose setup with multiple services, API gateway, and monitoring</p>
+            </div>
+            <div class="card">
+              <h4>CI/CD Pipeline Configs</h4>
+              <p>GitHub Actions, GitLab CI, and Jenkins configurations for automated workflows</p>
+            </div>
+          </div>
+          <h3>Features</h3>
+          <ul>
+            <li>Well-documented code with JSDoc/TSDoc comments</li>
+            <li>Comprehensive test suites with high coverage</li>
+            <li>Docker configurations for easy deployment</li>
+            <li>CI/CD pipelines included out of the box</li>
+            <li>Example implementations and usage guides</li>
+          </ul>
+          <p style="margin-top: 2rem;">
+            <span class="highlight">Access:</span> Available on GitHub. Search for "sharesth" or visit github.com/sharesth
+          </p>
+        </div>
+
+        <div class="content-section" id="interaction-design">
+          <h2>Code Architecture</h2>
+          <p>Every architectural decision impacts scalability, maintainability, and performance. I design code structures that are clean, modular, and future-proof.</p>
+          <h3>Principles</h3>
+          <ul>
+            <li><span class="highlight">Separation of Concerns:</span> Each module has a single, well-defined responsibility</li>
+            <li><span class="highlight">DRY (Don't Repeat Yourself):</span> Eliminate code duplication through abstraction</li>
+            <li><span class="highlight">SOLID:</span> Five principles for object-oriented design and architecture</li>
+            <li><span class="highlight">Fail Fast:</span> Errors are detected early with clear, actionable messages</li>
+            <li><span class="highlight">Performance:</span> Code is optimized for speed, memory, and scalability</li>
+          </ul>
+          <h3>Design Patterns</h3>
+          <p>
+            I leverage proven design patterns to solve common problems elegantly. Factory patterns for object creation,
+            Observer patterns for event handling, Strategy patterns for algorithm selection. Patterns serve as a shared
+            vocabulary that makes code more understandable and maintainable.
+          </p>
+          <h3>Architecture Patterns</h3>
+          <div class="grid-item">
+            <div class="card">
+              <h4>MVC/MVP/MVVM</h4>
+              <p>Separation of data, presentation, and business logic layers</p>
+            </div>
+            <div class="card">
+              <h4>Repository Pattern</h4>
+              <p>Abstraction layer between business logic and data access</p>
+            </div>
+            <div class="card">
+              <h4>Dependency Injection</h4>
+              <p>Loose coupling through inversion of control and dependency management</p>
+            </div>
+            <div class="card">
+              <h4>API Gateway</h4>
+              <p>Single entry point for client requests, routing to microservices</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <aside class="nav-panel">
+        <div class="label back-btn" id="backToAbout"><span>&larr;</span><span id="currentSection">About</span></div>
+        <ul>
+          <li data-section="resume">Resume</li>
+          <li data-section="credentials">Credentials</li>
+          <li data-section="inspirations">Inspirations</li>
+          <li data-section="typography">Code Style</li>
+          <li data-section="testimonials">Testimonials</li>
+          <li data-section="figma-templates">Code Repositories</li>
+          <li data-section="interaction-design">Code Architecture</li>
+        </ul>
+      </aside>
+    </div>
+    <div class="portrait" aria-hidden="true"></div>
+  </div>
+
+  <script>
+    const navItems = document.querySelectorAll('.nav-panel li[data-section]');
+    const backBtn = document.getElementById('backToAbout');
+    const currentSectionLabel = document.getElementById('currentSection');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    // Section name mapping for display
+    const sectionNames = {
+      'about': 'About',
+      'resume': 'Resume',
+      'credentials': 'Credentials',
+      'inspirations': 'Inspirations',
+      'typography': 'Code Style',
+      'testimonials': 'Testimonials',
+      'figma-templates': 'Code Repositories',
+      'interaction-design': 'Code Architecture'
+    };
+
+    function showSection(sectionId) {
+      // Hide all sections
+      contentSections.forEach(section => {
+        section.classList.remove('active');
+      });
+
+      // Show selected section
+      const targetSection = document.getElementById(sectionId);
+      if (targetSection) {
+        targetSection.classList.add('active');
+      }
+
+      // Update active nav item
+      navItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('data-section') === sectionId) {
+          item.classList.add('active');
+        }
+      });
+
+      // Update current section label
+      if (currentSectionLabel) {
+        currentSectionLabel.textContent = sectionNames[sectionId] || 'About';
+      }
+    }
+
+    // Add click handlers to nav items
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const sectionId = item.getAttribute('data-section');
+        showSection(sectionId);
+      });
+    });
+
+    // Back to About button
+    if (backBtn) {
+      backBtn.addEventListener('click', () => {
+        showSection('about');
+      });
+    }
+
+    // Initialize with About section
+    showSection('about');
+  </script>
+</body>
+</html>

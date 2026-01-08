@@ -12,3 +12,4 @@ This site serves as my digital identity — showcasing who I am, my skills, and 
 - **Upcoming Projects Section**  
 - **Contact / Connect Section**  
 - Built using **React + Node.js**  
+
